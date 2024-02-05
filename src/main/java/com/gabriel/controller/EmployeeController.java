@@ -6,6 +6,8 @@ import com.gabriel.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,13 +35,16 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public EntityModel<Employee> create(@RequestBody Employee employee){
+    public ResponseEntity<?> create(@RequestBody Employee employee){
         Employee newEmployee = employeeService.create(employee);
-        return assembler.toModel(newEmployee);
+        EntityModel<Employee> entityModel = assembler.toModel(newEmployee);
+        return ResponseEntity.created(entityModel
+                .getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<Employee>> getAll(){
+    public ResponseEntity<?> getAll(){
         List<EntityModel<Employee>> employees = employeeService
                 .getAll()
                 .stream()
@@ -47,26 +52,31 @@ public class EmployeeController {
                 .collect(Collectors.toList()
                 );
 
-        return CollectionModel.of(
+        CollectionModel<EntityModel<Employee>> entityModels = CollectionModel.of(
                 employees,
                 linkTo(methodOn(EmployeeController.class).getAll()).withSelfRel()
         );
+
+        return ResponseEntity.ok(entityModels);
     }
 
     @GetMapping("/{id}")
-    public EntityModel<Employee> getById(@PathVariable Long id){
+    public ResponseEntity<?> getById(@PathVariable Long id){
         Employee employee = employeeService.getById(id);
-        return assembler.toModel(employee);
+        EntityModel<Employee> entityModel = assembler.toModel(employee);
+        return ResponseEntity.ok(entityModel);
     }
 
     @PutMapping("/{id}")
-    public EntityModel<Employee> update(@RequestBody Employee employee, @PathVariable Long id){
+    public ResponseEntity<?> update(@RequestBody Employee employee, @PathVariable Long id){
         Employee updatedEmployee = employeeService.update(employee, id);
-        return assembler.toModel(updatedEmployee);
+        EntityModel<Employee> entityModel = assembler.toModel(updatedEmployee);
+        return ResponseEntity.ok(entityModel);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(@PathVariable Long id){
         employeeService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.gabriel.repository.EmployeeRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -41,6 +42,12 @@ public class EmployeeService {
     }
 
     public void delete(Long id){
+        Optional<Employee> employee = employeeRepository.findById(id);
+
+        if (employee.isEmpty()){
+            throw new EmployeeNotFoundException(id);
+        }
+
         employeeRepository.deleteById(id);
     }
 }

@@ -12,14 +12,27 @@ public class Employee {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
     @Column(name = "role")
     private String role;
 
-    public Employee(String name, String role) {
-        this.name = name;
+    public Employee(String firstName, String lastName, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.role = role;
+    }
+
+    public String getName() {
+        return this.firstName + " " + this.lastName;
+    }
+
+    public void setName(String name) {
+        String[] parts = name.split(" ");
+        this.firstName = parts[0];
+        this.lastName = parts[1];
     }
 
     @Override
@@ -28,12 +41,13 @@ public class Employee {
         if (!(obj instanceof Employee employee)) return false;
 
         return Objects.equals(this.id, employee.id) &&
-                Objects.equals(this.name, employee.name) &&
+                Objects.equals(this.firstName, employee.firstName) &&
+                Objects.equals(this.lastName, employee.lastName) &&
                 Objects.equals(this.role, employee.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.role);
+        return Objects.hash(this.id, this.firstName, this.lastName, this.role);
     }
 }
