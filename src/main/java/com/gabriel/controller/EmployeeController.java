@@ -30,21 +30,21 @@ public class EmployeeController {
     }
 
     @GetMapping("/hello")
-    public String hello(){
+    public String hello() {
         return "Hello World";
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Employee employee){
+    public ResponseEntity<?> create(@RequestBody Employee employee) {
         Employee newEmployee = employeeService.create(employee);
         EntityModel<Employee> entityModel = assembler.toModel(newEmployee);
         return ResponseEntity.created(entityModel
-                .getRequiredLink(IanaLinkRelations.SELF).toUri())
+                        .getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
     }
 
     @GetMapping
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity<?> getAll() {
         List<EntityModel<Employee>> employees = employeeService
                 .getAll()
                 .stream()
@@ -61,21 +61,21 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id){
+    public ResponseEntity<?> getById(@PathVariable Long id) {
         Employee employee = employeeService.getById(id);
         EntityModel<Employee> entityModel = assembler.toModel(employee);
         return ResponseEntity.ok(entityModel);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Employee employee, @PathVariable Long id){
+    public ResponseEntity<?> update(@RequestBody Employee employee, @PathVariable Long id) {
         Employee updatedEmployee = employeeService.update(employee, id);
         EntityModel<Employee> entityModel = assembler.toModel(updatedEmployee);
         return ResponseEntity.ok(entityModel);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         employeeService.delete(id);
         return ResponseEntity.noContent().build();
     }

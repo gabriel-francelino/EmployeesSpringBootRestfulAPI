@@ -7,9 +7,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "employee")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Employee {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "first_name")
@@ -37,7 +42,7 @@ public class Employee {
 
     @Override
     public boolean equals(Object obj) {
-        if(this == obj) return true;
+        if (this == obj) return true;
         if (!(obj instanceof Employee employee)) return false;
 
         return Objects.equals(this.id, employee.id) &&

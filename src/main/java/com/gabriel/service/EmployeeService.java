@@ -16,21 +16,21 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee create(Employee employee){
+    public Employee create(Employee employee) {
         return employeeRepository.save(employee);
     }
 
-    public List<Employee> getAll(){
+    public List<Employee> getAll() {
         return employeeRepository.findAll();
     }
 
-    public Employee getById(Long id){
+    public Employee getById(Long id) {
         return employeeRepository
                 .findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
-    public Employee update(Employee updatedEmployee, Long id){
+    public Employee update(Employee updatedEmployee, Long id) {
         return employeeRepository
                 .findById(id)
                 .map(employee -> {
@@ -41,10 +41,10 @@ public class EmployeeService {
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         Optional<Employee> employee = employeeRepository.findById(id);
 
-        if (employee.isEmpty()){
+        if (employee.isEmpty()) {
             throw new EmployeeNotFoundException(id);
         }
 

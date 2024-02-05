@@ -14,7 +14,7 @@ public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
-    CommandLineRunner initDabase(EmployeeRepository employeeRepository){
+    CommandLineRunner initDabase(EmployeeRepository employeeRepository) {
         return args -> {
             log.info("Preloading " + employeeRepository.save(new Employee("Georgian", "De Arrascaeta", "Jogador")));
             log.info("Preloadind " + employeeRepository.save(new Employee("Bruno", "Henrique", "Jogador")));
