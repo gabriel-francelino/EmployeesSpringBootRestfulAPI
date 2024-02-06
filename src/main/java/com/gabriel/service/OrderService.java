@@ -2,6 +2,7 @@ package com.gabriel.service;
 
 import com.gabriel.entity.Order;
 import com.gabriel.entity.Status;
+import com.gabriel.exception.OrderNotFoundException;
 import com.gabriel.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class OrderService {
     public Order getById(Long id) {
         return orderRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("Not found order with id" + id));
+                .orElseThrow(() -> new OrderNotFoundException(id));
     }
 
     public Order cancel(Order canceledOrder) {
