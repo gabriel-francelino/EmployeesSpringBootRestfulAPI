@@ -1,6 +1,7 @@
 package com.gabriel.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.Objects;
@@ -17,11 +18,17 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "first_name")
+
+//    @NotBlank(message = "O nome é obrigatório")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "last_name")
+
+//    @NotBlank(message = "O ultimo nome é obrigatório")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(name = "role")
+
+    @NotBlank(message = "O papel do empregado é obrigatório!")
+    @Column(name = "role", nullable = false)
     private String role;
 
     public Employee(String firstName, String lastName, String role) {

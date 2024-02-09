@@ -1,6 +1,7 @@
 package com.gabriel.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.Objects;
@@ -16,8 +17,11 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NonNull
+    @NotBlank(message = "A descrição do pedido é obrigatória!")
     private String description;
+
     private Status status;
 
     @Override

@@ -4,6 +4,7 @@ import com.gabriel.entity.Order;
 import com.gabriel.entity.Status;
 import com.gabriel.hateoas.OrderModelAssembler;
 import com.gabriel.service.OrderService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -35,7 +36,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Order order) {
+    public ResponseEntity<?> create(@Valid @RequestBody Order order) {
         Order newOrder = orderService.create(order);
         EntityModel<Order> entityModel = assembler.toModel(newOrder);
 

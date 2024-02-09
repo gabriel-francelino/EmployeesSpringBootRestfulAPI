@@ -3,6 +3,7 @@ package com.gabriel.controller;
 import com.gabriel.entity.Employee;
 import com.gabriel.hateoas.EmployeeModelAssembler;
 import com.gabriel.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -35,7 +36,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Employee employee) {
+    public ResponseEntity<?> create(@Valid @RequestBody Employee employee) {
         Employee newEmployee = employeeService.create(employee);
         EntityModel<Employee> entityModel = assembler.toModel(newEmployee);
         return ResponseEntity.created(entityModel
@@ -68,7 +69,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Employee employee, @PathVariable Long id) {
+    public ResponseEntity<?> update(@Valid @RequestBody Employee employee, @PathVariable Long id) {
         Employee updatedEmployee = employeeService.update(employee, id);
         EntityModel<Employee> entityModel = assembler.toModel(updatedEmployee);
         return ResponseEntity.ok(entityModel);
