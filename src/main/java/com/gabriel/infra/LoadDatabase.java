@@ -18,14 +18,17 @@ public class LoadDatabase {
 
     @Bean
     CommandLineRunner initDabase(EmployeeRepository employeeRepository, OrderRepository orderRepository) {
-        Order orderBase1 = new Order("Munhequeira vermelha");
-        Order orderBase2 = new Order("Colete de treino");
+        Employee employee1 = new Employee("Georgian", "De Arrascaeta", "Jogador");
+        Employee employee2 = new Employee("Bruno", "Henrique", "Jogador");
+
+        Order orderBase1 = new Order("Munhequeira vermelha", employee1);
+        Order orderBase2 = new Order("Colete de treino", employee2);
         orderBase1.setStatus(Status.IN_PROGRESS);
         orderBase2.setStatus(Status.IN_PROGRESS);
 
         return args -> {
-            log.info("Preloading " + employeeRepository.save(new Employee("Georgian", "De Arrascaeta", "Jogador")));
-            log.info("Preloadind " + employeeRepository.save(new Employee("Bruno", "Henrique", "Jogador")));
+            log.info("Preloading " + employeeRepository.save(employee1));
+            log.info("Preloadind " + employeeRepository.save(employee2));
 
             log.info("Preloadind " + orderRepository.save(orderBase1));
             log.info("Preloadind " + orderRepository.save(orderBase2));

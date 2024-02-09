@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static com.gabriel.common.EmployeeConstatnts.*;
+import static com.gabriel.common.EmployeeConstants.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;

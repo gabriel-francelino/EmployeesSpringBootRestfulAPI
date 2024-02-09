@@ -1,5 +1,6 @@
 package com.gabriel.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -23,6 +24,11 @@ public class Order {
     private String description;
 
     private Status status;
+
+    @NonNull
+    @ManyToOne @JoinColumn(name = "employee_id")
+    @JsonBackReference
+    private Employee employee;
 
     @Override
     public boolean equals(Object obj) {

@@ -1,9 +1,12 @@
 package com.gabriel.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -31,10 +34,15 @@ public class Employee {
     @Column(name = "role", nullable = false)
     private String role;
 
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Order> orders;
+
     public Employee(String firstName, String lastName, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+        this.orders = new ArrayList<>();
     }
 
     public String getName() {
