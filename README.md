@@ -12,7 +12,7 @@ Repositório criando com o intuito de praticar e aprofundar alguns conceitos de 
 - Lombok
 - HATEOAS
 - Exception Handling
+- Testes automatizados
 - Documentação com Swagger (Ainda não implementado)
-- Testes automatizados (Ainda não implementado)
 - DTOs (Ainda não implementado)
 
