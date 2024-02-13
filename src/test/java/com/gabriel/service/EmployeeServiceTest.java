@@ -56,7 +56,7 @@ public class EmployeeServiceTest {
         Long invalidId = -99L;
         when(employeeRepository.findById(invalidId)).thenThrow(RuntimeException.class);
 
-        assertThatThrownBy(() -> employeeService.delete(invalidId)).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> employeeService.getById(invalidId)).isInstanceOf(RuntimeException.class);
     }
 
     @Test

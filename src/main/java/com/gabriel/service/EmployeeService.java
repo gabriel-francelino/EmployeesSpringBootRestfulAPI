@@ -41,12 +41,14 @@ public class EmployeeService {
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
-    public void delete(Long id) {
-        Optional<Employee> employee = employeeRepository.findById(id);
+    public void delete(Long id)  {
+//        Optional<Employee> employee = Optional.ofNullable(employeeRepository
+//                .findById(id)
+//                .orElseThrow(() -> new EmployeeNotFoundException(id)));
 
-        if (employee.isEmpty()) {
-            throw new EmployeeNotFoundException(id);
-        }
+//        if (employee.isEmpty()) {
+//            throw new EmployeeNotFoundException(id);
+//        }
 
         employeeRepository.deleteById(id);
     }
