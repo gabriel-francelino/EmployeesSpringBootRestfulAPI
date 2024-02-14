@@ -2,7 +2,6 @@ package com.gabriel.hateoas;
 
 import com.gabriel.controller.OrderController;
 import com.gabriel.dto.order.ReadOrderDTO;
-import com.gabriel.entity.Order;
 import com.gabriel.entity.Status;
 import lombok.NonNull;
 import org.springframework.hateoas.EntityModel;

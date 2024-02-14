@@ -3,12 +3,9 @@ package com.gabriel.service;
 import com.gabriel.dto.order.CreateOrderDTO;
 import com.gabriel.dto.order.ReadOrderDTO;
 import com.gabriel.dto.order.mapper.OrderMapper;
-import com.gabriel.entity.Employee;
 import com.gabriel.entity.Order;
 import com.gabriel.entity.Status;
-import com.gabriel.exception.EmployeeNotFoundException;
 import com.gabriel.exception.OrderNotFoundException;
-import com.gabriel.repository.EmployeeRepository;
 import com.gabriel.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
