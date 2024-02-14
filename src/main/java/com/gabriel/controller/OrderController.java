@@ -1,6 +1,7 @@
 package com.gabriel.controller;
 
 import com.gabriel.dto.order.CreateOrderDTO;
+import com.gabriel.dto.order.ReadOrderDTO;
 import com.gabriel.entity.Order;
 import com.gabriel.entity.Status;
 import com.gabriel.hateoas.OrderModelAssembler;
@@ -38,8 +39,8 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody CreateOrderDTO order) {
-        Order newOrder = orderService.create(order);
-        EntityModel<Order> entityModel = assembler.toModel(newOrder);
+        ReadOrderDTO newOrder = orderService.create(order);
+        EntityModel<ReadOrderDTO> entityModel = assembler.toModel(newOrder);
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -48,13 +49,13 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<?> getAll() {
-        List<EntityModel<Order>> orders = orderService
+        List<EntityModel<ReadOrderDTO>> orders = orderService
                 .getAll()
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
 
-        CollectionModel<EntityModel<Order>> entityModels = CollectionModel.of(
+        CollectionModel<EntityModel<ReadOrderDTO>> entityModels = CollectionModel.of(
                 orders,
                 linkTo(methodOn(OrderController.class).getAll()).withSelfRel()
         );
@@ -63,17 +64,17 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
-        Order order = orderService.getById(id);
-        EntityModel<Order> entityModel = assembler.toModel(order);
+        ReadOrderDTO order = orderService.getById(id);
+        EntityModel<ReadOrderDTO> entityModel = assembler.toModel(order);
         return ResponseEntity.ok(entityModel);
     }
 
     @PutMapping("/{id}/complete")
     public ResponseEntity<?> complete(@PathVariable Long id){
-        Order order = orderService.getById(id);
+        Order order = orderService.getOrderById(id);
 
         if(order.getStatus() == Status.IN_PROGRESS) {
-            Order completedOrder = orderService.complete(order);
+            ReadOrderDTO completedOrder = orderService.complete(order);
             return ResponseEntity.ok(assembler.toModel(completedOrder));
         }
 
@@ -89,10 +90,10 @@ public class OrderController {
 
     @DeleteMapping("/{id}/cancel")
     public ResponseEntity<?> cancel(@PathVariable Long id) {
-        Order order = orderService.getById(id);
+        Order order = orderService.getOrderById(id);
 
         if (order.getStatus() == Status.IN_PROGRESS) {
-            Order canceledOrder = orderService.cancel(order);
+            ReadOrderDTO canceledOrder = orderService.cancel(order);
             return ResponseEntity.ok(assembler.toModel(canceledOrder));
         }
 

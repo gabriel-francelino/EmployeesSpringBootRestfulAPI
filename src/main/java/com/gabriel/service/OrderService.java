@@ -1,6 +1,7 @@
 package com.gabriel.service;
 
 import com.gabriel.dto.order.CreateOrderDTO;
+import com.gabriel.dto.order.ReadOrderDTO;
 import com.gabriel.dto.order.mapper.OrderMapper;
 import com.gabriel.entity.Employee;
 import com.gabriel.entity.Order;
@@ -12,6 +13,7 @@ import com.gabriel.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -23,31 +25,41 @@ public class OrderService {
         this.orderMapper = orderMapper;
     }
 
-    public Order create(CreateOrderDTO orderDTO) {
+    public ReadOrderDTO create(CreateOrderDTO orderDTO) {
         Order newOrder = orderMapper.toOrder(orderDTO);
-
         newOrder.setStatus(Status.IN_PROGRESS);
 
-        return orderRepository.save(newOrder);
+        return orderMapper.toDTO(orderRepository.save(newOrder));
     }
 
-    public List<Order> getAll() {
-        return orderRepository.findAll();
+    public List<ReadOrderDTO> getAll() {
+        return orderRepository
+                .findAll()
+                .stream()
+                .map(orderMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Order getById(Long id) {
+    public ReadOrderDTO getById(Long id) {
+        return orderRepository
+                .findById(id)
+                .map(orderMapper::toDTO)
+                .orElseThrow(() -> new OrderNotFoundException(id));
+    }
+
+    public Order getOrderById(Long id) {
         return orderRepository
                 .findById(id)
                 .orElseThrow(() -> new OrderNotFoundException(id));
     }
 
-    public Order cancel(Order canceledOrder) {
+    public ReadOrderDTO cancel(Order canceledOrder) {
         canceledOrder.setStatus(Status.CANCELED);
-        return orderRepository.save(canceledOrder);
+        return orderMapper.toDTO(orderRepository.save(canceledOrder));
     }
 
-    public Order complete(Order completedOrder) {
+    public ReadOrderDTO complete(Order completedOrder) {
         completedOrder.setStatus(Status.COMPLETED);
-        return orderRepository.save(completedOrder);
+        return orderMapper.toDTO(orderRepository.save(completedOrder));
     }
 }

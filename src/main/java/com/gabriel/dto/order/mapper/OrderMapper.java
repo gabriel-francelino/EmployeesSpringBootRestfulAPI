@@ -1,6 +1,7 @@
 package com.gabriel.dto.order.mapper;
 
 import com.gabriel.dto.order.CreateOrderDTO;
+import com.gabriel.dto.order.ReadOrderDTO;
 import com.gabriel.entity.Employee;
 import com.gabriel.entity.Order;
 import com.gabriel.exception.EmployeeNotFoundException;
@@ -23,6 +24,15 @@ public class OrderMapper {
         return Order.builder()
                 .description(dto.description())
                 .employee(employee)
+                .build();
+    }
+
+    public ReadOrderDTO toDTO(Order order) {
+        return ReadOrderDTO.builder()
+                .id(order.getId())
+                .description(order.getDescription())
+                .status(order.getStatus())
+                .employee_id(order.getEmployee().getId())
                 .build();
     }
 
