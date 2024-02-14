@@ -1,5 +1,6 @@
 package com.gabriel.controller;
 
+import com.gabriel.dto.order.CreateOrderDTO;
 import com.gabriel.entity.Order;
 import com.gabriel.entity.Status;
 import com.gabriel.hateoas.OrderModelAssembler;
@@ -36,12 +37,12 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody Order order) {
+    public ResponseEntity<?> create(@Valid @RequestBody CreateOrderDTO order) {
         Order newOrder = orderService.create(order);
         EntityModel<Order> entityModel = assembler.toModel(newOrder);
 
-        return ResponseEntity.created(entityModel
-                        .getRequiredLink(IanaLinkRelations.SELF).toUri())
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
     }
 
