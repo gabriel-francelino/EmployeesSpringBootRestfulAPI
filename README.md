@@ -10,8 +10,6 @@ Repositório criando com o intuito de praticar e aprofundar alguns conceitos de 
 
 ## Conteúdos estudados
 
-Aqui está a descrição atualizada das tecnologias utilizadas no projeto Spring Boot:
-
 - **H2 Database**: O H2 é um banco de dados relacional em memória escrito em Java. É frequentemente utilizado em desenvolvimento e teste de aplicativos devido à sua leveza, simplicidade de configuração e facilidade de uso.
 
 
