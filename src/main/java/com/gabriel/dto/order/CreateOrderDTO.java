@@ -1,4 +1,9 @@
 package com.gabriel.dto.order;
 
-public record CreateOrderDTO(String description, Long employee_id) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record CreateOrderDTO(
+        @NotNull @NotBlank(message = "A descrição é obrigatória!") String description,
+        @NotNull(message = "É necessário informar o empregado!") Long employee_id) {
 }

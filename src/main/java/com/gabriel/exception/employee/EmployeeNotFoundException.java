@@ -1,4 +1,4 @@
-package com.gabriel.exception;
+package com.gabriel.exception.employee;
 
 public class EmployeeNotFoundException extends RuntimeException {
     public EmployeeNotFoundException(Long id) {

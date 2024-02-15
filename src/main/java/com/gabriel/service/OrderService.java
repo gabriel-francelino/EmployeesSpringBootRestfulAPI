@@ -5,7 +5,7 @@ import com.gabriel.dto.order.ReadOrderDTO;
 import com.gabriel.dto.order.mapper.OrderMapper;
 import com.gabriel.entity.Order;
 import com.gabriel.entity.Status;
-import com.gabriel.exception.OrderNotFoundException;
+import com.gabriel.exception.order.OrderNotFoundException;
 import com.gabriel.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 

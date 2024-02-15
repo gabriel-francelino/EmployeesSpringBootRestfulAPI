@@ -3,7 +3,7 @@ package com.gabriel.service;
 import com.gabriel.dto.employee.RequestEmployeeDTO;
 import com.gabriel.dto.employee.mapper.EmployeeMapper;
 import com.gabriel.entity.Employee;
-import com.gabriel.exception.EmployeeNotFoundException;
+import com.gabriel.exception.employee.EmployeeNotFoundException;
 import org.springframework.stereotype.Service;
 import com.gabriel.repository.EmployeeRepository;
 

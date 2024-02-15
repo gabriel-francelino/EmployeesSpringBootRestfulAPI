@@ -3,6 +3,7 @@ package com.gabriel.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Objects;
@@ -28,6 +29,7 @@ public class Order {
     private Status status;
 
     @NonNull
+    @NotNull(message = "É obrigatório informar o empregado!")
     @ManyToOne @JoinColumn(name = "employee_id")
     @JsonBackReference
     private Employee employee;

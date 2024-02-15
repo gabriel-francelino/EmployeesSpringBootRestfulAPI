@@ -4,7 +4,7 @@ import com.gabriel.dto.order.CreateOrderDTO;
 import com.gabriel.dto.order.ReadOrderDTO;
 import com.gabriel.entity.Employee;
 import com.gabriel.entity.Order;
-import com.gabriel.exception.EmployeeNotFoundException;
+import com.gabriel.exception.employee.EmployeeNotFoundException;
 import com.gabriel.repository.EmployeeRepository;
 import org.springframework.stereotype.Component;
 

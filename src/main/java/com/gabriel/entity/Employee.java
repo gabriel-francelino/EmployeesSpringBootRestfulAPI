@@ -1,8 +1,8 @@
 package com.gabriel.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.gabriel.exception.employee.InvalidNameException;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -31,7 +31,6 @@ public class Employee {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @NotBlank(message = "O papel do empregado é obrigatório!")
     @Column(name = "role", nullable = false)
     private String role;
 
@@ -52,6 +51,7 @@ public class Employee {
 
     public void setName(String name) {
         String[] parts = name.split(" ");
+        if (parts.length < 2) throw new InvalidNameException();
         this.firstName = parts[0];
         this.lastName = parts[1];
     }
