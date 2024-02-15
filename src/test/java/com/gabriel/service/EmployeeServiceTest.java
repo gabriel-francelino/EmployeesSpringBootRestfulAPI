@@ -1,5 +1,6 @@
 package com.gabriel.service;
 
+import com.gabriel.dto.employee.mapper.EmployeeMapper;
 import com.gabriel.entity.Employee;
 import com.gabriel.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
@@ -25,20 +26,25 @@ public class EmployeeServiceTest {
     @Mock
     private EmployeeRepository employeeRepository;
 
+    @Mock
+    private EmployeeMapper employeeMapper;
+
     @Test
     public void createEmployee_WithValidData_ReturnEmployee() {
+        when(employeeMapper.toEmployee(REQUEST_EMPLOYEE_DTO)).thenReturn(EMPLOYEE);
         when(employeeRepository.save(EMPLOYEE)).thenReturn(EMPLOYEE);
 
-        Employee sut = employeeService.create(EMPLOYEE);
+        Employee sut = employeeService.create(REQUEST_EMPLOYEE_DTO);
 
         assertThat(sut).isEqualTo(EMPLOYEE);
     }
 
     @Test
     public void createEmployee_WithInvalidData_ThrowsException(){
+        when(employeeMapper.toEmployee(INVALID_REQUEST_EMPLOYEE_DTO)).thenReturn(INVALID_EMPLOYEE);
         when(employeeRepository.save(INVALID_EMPLOYEE)).thenThrow(RuntimeException.class);
 
-        assertThatThrownBy(() -> employeeService.create(INVALID_EMPLOYEE)).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> employeeService.create(INVALID_REQUEST_EMPLOYEE_DTO)).isInstanceOf(RuntimeException.class);
     }
 
     @Test
