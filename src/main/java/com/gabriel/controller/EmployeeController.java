@@ -1,5 +1,6 @@
 package com.gabriel.controller;
 
+import com.gabriel.dto.employee.RequestEmployeeDTO;
 import com.gabriel.entity.Employee;
 import com.gabriel.hateoas.EmployeeModelAssembler;
 import com.gabriel.service.EmployeeService;
@@ -36,7 +37,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody Employee employee) {
+    public ResponseEntity<?> create(@Valid @RequestBody RequestEmployeeDTO employee) {
         Employee newEmployee = employeeService.create(employee);
         EntityModel<Employee> entityModel = assembler.toModel(newEmployee);
         return ResponseEntity.created(entityModel
@@ -69,7 +70,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@Valid @RequestBody Employee employee, @PathVariable Long id) {
+    public ResponseEntity<?> update(@Valid @RequestBody RequestEmployeeDTO employee, @PathVariable Long id) {
         Employee updatedEmployee = employeeService.update(employee, id);
         EntityModel<Employee> entityModel = assembler.toModel(updatedEmployee);
         return ResponseEntity.ok(entityModel);

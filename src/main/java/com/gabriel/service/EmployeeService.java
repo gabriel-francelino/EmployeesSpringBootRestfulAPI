@@ -1,23 +1,27 @@
 package com.gabriel.service;
 
+import com.gabriel.dto.employee.RequestEmployeeDTO;
+import com.gabriel.dto.employee.mapper.EmployeeMapper;
 import com.gabriel.entity.Employee;
 import com.gabriel.exception.EmployeeNotFoundException;
 import org.springframework.stereotype.Service;
 import com.gabriel.repository.EmployeeRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final EmployeeMapper employeeMapper;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper) {
         this.employeeRepository = employeeRepository;
+        this.employeeMapper = employeeMapper;
     }
 
-    public Employee create(Employee employee) {
-        return employeeRepository.save(employee);
+    public Employee create(RequestEmployeeDTO employee) {
+        Employee newEmployee = employeeMapper.toEmployee(employee);
+        return employeeRepository.save(newEmployee);
     }
 
     public List<Employee> getAll() {
@@ -30,12 +34,12 @@ public class EmployeeService {
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
-    public Employee update(Employee updatedEmployee, Long id) {
+    public Employee update(RequestEmployeeDTO updatedEmployee, Long id) {
         return employeeRepository
                 .findById(id)
                 .map(employee -> {
-                    employee.setName(updatedEmployee.getName());
-                    employee.setRole(updatedEmployee.getRole());
+                    employee.setName(updatedEmployee.name());
+                    employee.setRole(updatedEmployee.role());
                     return employeeRepository.save(employee);
                 })
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
