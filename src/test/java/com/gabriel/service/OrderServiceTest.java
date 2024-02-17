@@ -45,4 +45,24 @@ public class OrderServiceTest {
         assertThatThrownBy(() -> orderService.create(INVALID_CREATE_ORDER_DTO))
                 .isInstanceOf(RuntimeException.class);
     }
+
+    @Test
+    public void cancelOrder_StatusInProgress_ReturnCanceledOrderDTO() {
+        when(orderRepository.save(CANCELED_ORDER)).thenReturn(CANCELED_ORDER);
+        when(orderMapper.toDTO(CANCELED_ORDER)).thenReturn(READ_CANCELED_ORDER_DTO);
+
+        ReadOrderDTO sut = orderService.cancel(ORDER);
+
+        assertThat(sut.status()).isEqualByComparingTo(CANCELED_ORDER.getStatus());
+    }
+
+    @Test
+    public void completeOrder_StatusInProgress_ReturnCompletedOrderDTO() {
+        when(orderRepository.save(COMPLETED_ORDER)).thenReturn(COMPLETED_ORDER);
+        when(orderMapper.toDTO(COMPLETED_ORDER)).thenReturn(READ_COMPLETED_ORDER_DTO);
+
+        ReadOrderDTO sut = orderService.complete(ORDER);
+
+        assertThat(sut.status()).isEqualByComparingTo(COMPLETED_ORDER.getStatus());
+    }
 }

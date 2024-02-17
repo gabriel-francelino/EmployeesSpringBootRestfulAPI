@@ -11,6 +11,10 @@ public class OrderConstants {
     public static final CreateOrderDTO CREATE_ORDER_DTO = new CreateOrderDTO("Test", 1L);
     public static final CreateOrderDTO INVALID_CREATE_ORDER_DTO = new CreateOrderDTO("", null);
     public static final ReadOrderDTO READ_ORDER_DTO = new ReadOrderDTO(1L, "Test", Status.IN_PROGRESS, 1L);
+    public static final ReadOrderDTO READ_CANCELED_ORDER_DTO = new ReadOrderDTO(1L, "Test", Status.CANCELED, 1L);
+    public static final ReadOrderDTO READ_COMPLETED_ORDER_DTO = new ReadOrderDTO(1L, "Test", Status.COMPLETED, 1L);
     public static final Order ORDER = new Order(1L, "Test", Status.IN_PROGRESS, EMPLOYEE);
     public static final Order INVALID_ORDER = new Order(null, "", null, EMPLOYEE);
+    public static final Order CANCELED_ORDER = new Order(1L, "Test", Status.CANCELED, EMPLOYEE);
+    public static final Order COMPLETED_ORDER = new Order(1L, "Test", Status.COMPLETED, EMPLOYEE);
 }
