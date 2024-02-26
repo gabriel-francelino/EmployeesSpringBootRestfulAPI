@@ -37,5 +37,11 @@ Repositório criando com o intuito de praticar e aprofundar alguns conceitos de 
 ![](https://www.baeldung.com/wp-content/uploads/2021/08/layers-4.svg)
 
 
-- **Documentação com Swagger (Ainda não implementado)**: O Swagger é uma ferramenta de código aberto para a documentação de APIs RESTful. Ele permite que os desenvolvedores descrevam, documentem e testem APIs de forma fácil e eficiente. A documentação gerada pelo Swagger pode ser usada para facilitar a integração com a API e melhorar a comunicação entre equipes de desenvolvimento e clientes. Sua implementação está prevista para fornecer uma documentação clara e completa da API desenvolvida.
+- **Documentação com Swagger**: O Swagger é uma ferramenta de código aberto para a documentação de APIs RESTful. Ele permite que os desenvolvedores descrevam, documentem e testem APIs de forma fácil e eficiente. A documentação gerada pelo Swagger pode ser usada para facilitar a integração com a API e melhorar a comunicação entre equipes de desenvolvimento e clientes. Sua implementação está prevista para fornecer uma documentação clara e completa da API desenvolvida. 
+
+    Obs: Para acessar a documentação execute o projeto e abra o seguinte link: 
+    ```hppt 
+        http://localhost:8080/swagger-ui/index.html
+    ```
+
 ![](https://www.baeldung.com/wp-content/uploads/2019/11/1-swagger-ui.png)
